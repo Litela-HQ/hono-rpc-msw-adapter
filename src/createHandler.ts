@@ -3,8 +3,10 @@ import { type Hono } from 'hono';
 import { HttpResponse, http } from 'msw';
 import { getConfig } from './config';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- allow constraint
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint(prefer-ts-expect-error), @typescript-eslint(ban-ts-comment) -- allow constraint */
+// @ts-ignore - routeType should be registered by declaration merging
 export type ApiSchema = Register['routeType'] extends Hono<any, infer S> ? S : never;
+/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint(prefer-ts-expect-error), @typescript-eslint(ban-ts-comment) */
 
 type IEndpoint = {
   status: number;
@@ -29,28 +31,32 @@ export const createHandler = <
   EndpointSchema extends IEndpoint = ApiSchema[Route][Method] extends IEndpoint
     ? ApiSchema[Route][Method]
     : never,
-  Response extends {
-    status: number;
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- allow for constraints
-    data: {};
-  } = {
-    status: EndpointSchema['status'];
-    data: EndpointSchema['output'];
-  },
 >(
   route: Route,
   method: Method,
-  handler: (ctx: { input: EndpointSchema['input'] }) => Response | Promise<Response>,
+  handler: (ctx: {
+    input: EndpointSchema['input'];
+  }) =>
+    | Pick<EndpointSchema, 'status' | 'output'>
+    | Promise<Pick<EndpointSchema, 'status' | 'output'>>,
 ) => {
   const { baseUrl } = getConfig();
 
   const fullUrl = concatUrl(baseUrl, route.toString());
 
   if (method === '$get') {
-    return http.get(fullUrl, async () => {
-      const response = await handler({ input: {} as EndpointSchema['input'] });
+    return http.get(fullUrl, async ({ request }) => {
+      const url = new URL(request.url);
+      const query: Record<string, string> = {};
+      url.searchParams.forEach((value, key) => {
+        query[key] = value;
+      });
 
-      return HttpResponse.json(response.data, {
+      const response = await handler({
+        input: { query } as EndpointSchema['input'],
+      });
+
+      return HttpResponse.json(response.output, {
         status: response.status,
       });
     });
@@ -58,12 +64,15 @@ export const createHandler = <
 
   if (method === '$post') {
     return http.post(fullUrl, async ({ request }) => {
-      const requestData = await request.json();
+      const text = await request.text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
+      const requestData = text ? JSON.parse(text) : {};
       const response = await handler({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
         input: { json: requestData } as EndpointSchema['input'],
       });
 
-      return HttpResponse.json(response.data, {
+      return HttpResponse.json(response.output, {
         status: response.status,
       });
     });
@@ -71,12 +80,15 @@ export const createHandler = <
 
   if (method === '$put') {
     return http.put(fullUrl, async ({ request }) => {
-      const requestData = await request.json();
+      const text = await request.text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
+      const requestData = text ? JSON.parse(text) : {};
       const response = await handler({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
         input: { json: requestData } as EndpointSchema['input'],
       });
 
-      return HttpResponse.json(response.data, {
+      return HttpResponse.json(response.output, {
         status: response.status,
       });
     });
@@ -84,12 +96,15 @@ export const createHandler = <
 
   if (method === '$patch') {
     return http.patch(fullUrl, async ({ request }) => {
-      const requestData = await request.json();
+      const text = await request.text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
+      const requestData = text ? JSON.parse(text) : {};
       const response = await handler({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
         input: { json: requestData } as EndpointSchema['input'],
       });
 
-      return HttpResponse.json(response.data, {
+      return HttpResponse.json(response.output, {
         status: response.status,
       });
     });
@@ -97,12 +112,15 @@ export const createHandler = <
 
   if (method === '$delete') {
     return http.delete(fullUrl, async ({ request }) => {
-      const requestData = await request.json();
+      const text = await request.text();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
+      const requestData = text ? JSON.parse(text) : {};
       const response = await handler({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
         input: { json: requestData } as EndpointSchema['input'],
       });
 
-      return HttpResponse.json(response.data, {
+      return HttpResponse.json(response.output, {
         status: response.status,
       });
     });

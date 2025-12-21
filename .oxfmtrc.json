@@ -5,5 +5,5 @@
     "order": "asc",
     "newlinesBetween": false
   },
-  "experimentalSortPackageJson": true
+  "experimentalSortPackageJson": false // this option breaks the exports field priority
 }

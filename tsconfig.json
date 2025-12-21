@@ -17,9 +17,11 @@
     // TypeChecking
     "exactOptionalPropertyTypes": false,
     "allowJs": true,
+    "lib": ["ES2022", "dom"],
 
     // transpile
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/tests/**/*.ts", "src/**/*.test.ts"]
 }

@@ -5,32 +5,37 @@
   "type": "module",
   "exports": {
     ".": {
+      "@hono-rpc-msw-adapter/src": "./src/index.ts",
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
     },
     "./register": {
-      "types": "./dist/register.d.mts",
       "@hono-rpc-msw-adapter/src": "./src/register.ts",
+      "types": "./dist/register.d.mts",
       "import": "./dist/register.mjs",
       "require": "./dist/register.cjs",
       "default": "./dist/register.mjs"
     }
   },
   "scripts": {
+    "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "lint": "pnpm /^lint:.*/",
-    "lint:oxlint": "oxlint --type-aware --type-check --ignore-path .gitignore --report-unused-disable-directives --tsconfig ./tsconfig.json",
+    "lint:oxlint": "oxlint --type-aware --ignore-path .gitignore --report-unused-disable-directives --tsconfig ./tsconfig.json",
     "lint:oxfmt": "pnpm fix:oxfmt --check",
     "fix": "pnpm /^fix:.*/",
     "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
     "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
-    "build": "tsdown",
+    "test": "pnpm tsc -p ./tsconfig.test.json && vitest run",
     "prepare": "lefthook install"
   },
   "devDependencies": {
+    "@hono/node-server": "catalog:",
+    "@hono/zod-validator": "catalog:",
     "@tsconfig/strictest": "catalog:",
+    "@vitest/ui": "catalog:",
     "hono": "catalog:",
     "lefthook": "catalog:",
     "msw": "catalog:",
@@ -38,7 +43,9 @@
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   },
   "peerDependencies": {
     "hono": "catalog:",
