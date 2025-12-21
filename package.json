@@ -5,13 +5,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     },
     "./register": {
-      "types": "./dist/register.d.ts",
+      "types": "./dist/register.d.mts",
       "@hono-rpc-msw-adapter/src": "./src/register.ts",
-      "import": "./dist/register.js"
+      "import": "./dist/register.mjs",
+      "require": "./dist/register.cjs",
+      "default": "./dist/register.mjs"
     }
   },
   "scripts": {
@@ -22,6 +26,7 @@
     "fix": "pnpm /^fix:.*/",
     "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
     "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "build": "tsdown",
     "prepare": "lefthook install"
   },
   "devDependencies": {
@@ -32,6 +37,7 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "peerDependencies": {
