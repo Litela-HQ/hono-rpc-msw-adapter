@@ -1,0 +1,25 @@
+{
+  "name": "@kimuson/hono-rpc-msw-adapter",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "pnpm /^lint:.*/",
+    "lint:oxlint": "oxlint --type-aware --type-check --ignore-path .gitignore --report-unused-disable-directives --tsconfig ./tsconfig.json",
+    "lint:oxfmt": "pnpm fix:oxfmt --check",
+    "fix": "pnpm /^fix:.*/",
+    "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
+    "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "catalog:",
+    "lefthook": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa"
+}

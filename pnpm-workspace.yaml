@@ -1,0 +1,13 @@
+catalog:
+  '@tsconfig/strictest': 2.0.8
+  lefthook: 2.0.12
+  oxfmt: 0.18.0
+  oxlint: 1.33.0
+  oxlint-tsgolint: 0.9.1
+  typescript: 5.9.3
+
+catalogMode: strict
+
+cleanupUnusedCatalogs: true
+
+minimumReleaseAge: 7200
