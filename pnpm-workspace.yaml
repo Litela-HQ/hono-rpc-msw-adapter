@@ -1,6 +1,8 @@
 catalog:
   '@tsconfig/strictest': 2.0.8
+  hono: 4.11.1
   lefthook: 2.0.12
+  msw: 2.12.4
   oxfmt: 0.18.0
   oxlint: 1.33.0
   oxlint-tsgolint: 0.9.1

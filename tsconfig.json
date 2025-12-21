@@ -12,6 +12,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
+    "customConditions": ["@hono-rpc-msw-adapter/src"],
 
     // TypeChecking
     "exactOptionalPropertyTypes": false,
