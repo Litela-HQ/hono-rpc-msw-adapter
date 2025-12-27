@@ -20,8 +20,8 @@
     "lib": ["ES2022", "dom"],
 
     // transpile
-    "noEmit": true
+    "noEmit": true,
+    "noErrorTruncation": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/tests/**/*.ts", "src/**/*.test.ts"]
+  "include": ["src/**/*.ts"]
 }

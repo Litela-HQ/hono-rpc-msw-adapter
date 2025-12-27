@@ -28,7 +28,7 @@
     "fix": "pnpm /^fix:.*/",
     "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
     "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
-    "test": "pnpm tsc -p ./tsconfig.test.json && vitest run",
+    "test": "vitest",
     "prepare": "lefthook install"
   },
   "devDependencies": {
