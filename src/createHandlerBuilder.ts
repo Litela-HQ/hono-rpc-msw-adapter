@@ -1,11 +1,46 @@
 import { type Schema, type Hono } from 'hono';
 import { type HonoBase } from 'hono/hono-base';
-import { HttpResponse, http } from 'msw';
+import { type DefaultBodyType, HttpResponse, type StrictRequest, http } from 'msw';
 import { concatUrl } from './concatUrl';
 import { type IEndpoint, type HonoRpcMswAdapterConfig, type UnionToIntersection } from './types';
 
 const defaultConfig: HonoRpcMswAdapterConfig = {
   baseUrl: '/',
+};
+
+const parseBody = async (request: StrictRequest<DefaultBodyType>): Promise<unknown> => {
+  if (request.method === 'GET') {
+    return undefined;
+  }
+
+  try {
+    const text = await request.text();
+    const body: unknown = text ? JSON.parse(text) : {};
+    return body;
+  } catch {
+    return {};
+  }
+};
+
+const createRequestData = async (ctx: {
+  request: StrictRequest<DefaultBodyType>;
+  params: Record<string, string | ReadonlyArray<string> | undefined>;
+}) => {
+  const { request, params } = ctx;
+
+  // query
+  const url = new URL(request.url);
+  const query: Record<string, string> = {};
+  url.searchParams.forEach((value, key) => {
+    query[key] = value;
+  });
+
+  // body
+  return {
+    query,
+    param: params,
+    json: await parseBody(request),
+  };
 };
 
 export const createHandlerBuilder = <
@@ -55,6 +90,9 @@ export const createHandlerBuilder = <
     method: Method,
     handler: (ctx: {
       input: EndpointSchema['input'];
+      requestId: string;
+      cookies: Record<string, string>;
+      request: Request;
     }) =>
       | Pick<EndpointSchema, 'status' | 'output'>
       | Promise<Pick<EndpointSchema, 'status' | 'output'>>,
@@ -64,15 +102,14 @@ export const createHandlerBuilder = <
     const fullUrl = concatUrl(baseUrl, route.toString());
 
     if (method === '$get') {
-      return http.get(fullUrl, async ({ request }) => {
-        const url = new URL(request.url);
-        const query: Record<string, string> = {};
-        url.searchParams.forEach((value, key) => {
-          query[key] = value;
-        });
+      return http.get(fullUrl, async ({ request, requestId, params, cookies }) => {
+        const input = await createRequestData({ request, params });
 
         const response = await handler({
-          input: { query } as EndpointSchema['input'],
+          input: input as EndpointSchema['input'],
+          requestId,
+          cookies,
+          request,
         });
 
         return HttpResponse.json(response.output, {
@@ -82,13 +119,14 @@ export const createHandlerBuilder = <
     }
 
     if (method === '$post') {
-      return http.post(fullUrl, async ({ request }) => {
-        const text = await request.text();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
-        const requestData = text ? JSON.parse(text) : {};
+      return http.post(fullUrl, async ({ request, requestId, cookies, params }) => {
+        const input = await createRequestData({ request, params });
+
         const response = await handler({
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
-          input: { json: requestData } as EndpointSchema['input'],
+          input: input as EndpointSchema['input'],
+          requestId,
+          cookies,
+          request,
         });
 
         return HttpResponse.json(response.output, {
@@ -98,13 +136,14 @@ export const createHandlerBuilder = <
     }
 
     if (method === '$put') {
-      return http.put(fullUrl, async ({ request }) => {
-        const text = await request.text();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
-        const requestData = text ? JSON.parse(text) : {};
+      return http.put(fullUrl, async ({ request, requestId, cookies, params }) => {
+        const input = await createRequestData({ request, params });
+
         const response = await handler({
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
-          input: { json: requestData } as EndpointSchema['input'],
+          input: input as EndpointSchema['input'],
+          requestId,
+          cookies,
+          request,
         });
 
         return HttpResponse.json(response.output, {
@@ -114,13 +153,14 @@ export const createHandlerBuilder = <
     }
 
     if (method === '$patch') {
-      return http.patch(fullUrl, async ({ request }) => {
-        const text = await request.text();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
-        const requestData = text ? JSON.parse(text) : {};
+      return http.patch(fullUrl, async ({ request, requestId, cookies, params }) => {
+        const input = await createRequestData({ request, params });
+
         const response = await handler({
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
-          input: { json: requestData } as EndpointSchema['input'],
+          input: input as EndpointSchema['input'],
+          requestId,
+          cookies,
+          request,
         });
 
         return HttpResponse.json(response.output, {
@@ -130,13 +170,14 @@ export const createHandlerBuilder = <
     }
 
     if (method === '$delete') {
-      return http.delete(fullUrl, async ({ request }) => {
-        const text = await request.text();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- JSON.parse returns any by design
-        const requestData = text ? JSON.parse(text) : {};
+      return http.delete(fullUrl, async ({ request, requestId, cookies, params }) => {
+        const input = await createRequestData({ request, params });
+
         const response = await handler({
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Type assertion is necessary for flexibility
-          input: { json: requestData } as EndpointSchema['input'],
+          input: input as EndpointSchema['input'],
+          requestId,
+          cookies,
+          request,
         });
 
         return HttpResponse.json(response.output, {
