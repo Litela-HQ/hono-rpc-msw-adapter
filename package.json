@@ -1,8 +1,12 @@
 {
   "name": "@kimuson/hono-rpc-msw-adapter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "exports": {
     ".": {
       "@hono-rpc-msw-adapter/src": "./src/index.ts",
