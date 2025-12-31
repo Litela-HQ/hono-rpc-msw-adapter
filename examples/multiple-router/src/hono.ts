@@ -1,7 +1,18 @@
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
-import z from 'zod';
-import { type Post } from './types';
+import { z } from 'zod';
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type Post = {
+  id: string;
+  title: string;
+  createdAt: string;
+};
 
 const posts: Post[] = [
   { id: '1', title: 'Post 1', createdAt: '2021-01-01' },

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": [".node-version", "pnpm-lock.yaml", "pnpm-workspace.yaml"],
+  "envMode": "loose",
+  "tasks": {
+    "typecheck": {},
+    "test": {},
+  },
+}

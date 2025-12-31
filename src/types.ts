@@ -1,4 +1,6 @@
+import { type Register } from '@kimuson/hono-rpc-msw-adapter/register';
 import { type Hono } from 'hono';
+import { type HonoBase } from 'hono/hono-base';
 import { type MergeSchemaPath, type Schema } from 'hono/types';
 
 export type HonoRpcMswAdapterConfig = {
@@ -31,3 +33,18 @@ export type ResolveMergedSchema<T> =
     : never;
 
 export type IsNever<T> = [T] extends [never] ? true : false;
+
+// eslint-disable-next-line typescript-eslint(prefer-ts-expect-error), typescript-eslint(ban-ts-comment) -- ts-ignore required for multiple tsconfig checks
+// @ts-ignore -- should be registered by declaration merging
+export type RouteType = Register['routeType'];
+
+export type SchemaType = UnionToIntersection<
+  // eslint-disable-next-line typescript-eslint(no-explicit-any) -- allow constraint
+  RouteType extends HonoBase<any, infer S, any>
+    ? S extends Record<infer K, Schema>
+      ? K extends string
+        ? Record<K, S[K]>
+        : never
+      : never
+    : never
+>;

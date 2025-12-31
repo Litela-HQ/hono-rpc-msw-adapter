@@ -25,14 +25,18 @@
   },
   "scripts": {
     "build": "tsdown",
-    "typecheck": "tsc --noEmit",
-    "lint": "pnpm /^lint:.*/",
+    "typecheck": "run-s 'typecheck:*'",
+    "typecheck:examples": "tsc --noEmit",
+    "typecheck:package": "turbo run typecheck",
+    "lint": "run-s 'lint:*'",
     "lint:oxlint": "oxlint --type-aware --ignore-path .gitignore --report-unused-disable-directives --tsconfig ./tsconfig.json",
     "lint:oxfmt": "pnpm fix:oxfmt --check",
-    "fix": "pnpm /^fix:.*/",
+    "fix": "run-s 'fix:*'",
     "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
     "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
-    "test": "vitest"
+    "test": "run-s 'test:*'",
+    "test:examples": "vitest run",
+    "test:package": "turbo run test"
   },
   "devDependencies": {
     "@hono/node-server": "catalog:",
@@ -42,12 +46,14 @@
     "hono": "catalog:",
     "lefthook": "catalog:",
     "msw": "catalog:",
+    "npm-run-all2": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
     "release-it": "catalog:",
     "release-it-pnpm": "catalog:",
     "tsdown": "catalog:",
+    "turbo": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
     "zod": "catalog:"
