@@ -1,12 +1,19 @@
 {
   "name": "@kimuson/hono-rpc-msw-adapter",
   "version": "0.0.1",
-  "license": "MIT",
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-kimuson/hono-rpc-msw-adapter.git"
+  },
+  "homepage": "https://github.com/d-kimuson/hono-rpc-msw-adapter",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "exports": {
     ".": {
       "@hono-rpc-msw-adapter/src": "./src/index.ts",
