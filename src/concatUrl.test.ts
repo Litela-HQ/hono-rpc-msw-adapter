@@ -35,6 +35,11 @@ describe('concatUrl', () => {
   });
 
   describe('when using fallback mechanism for relative paths', () => {
+    it('should concatenate relative and route paths', () => {
+      const result = concatUrl('/', '/path');
+      expect(result).toBe('/path');
+    });
+
     it('should concatenate relative base and route paths', () => {
       const result = concatUrl('/base', '/path');
       expect(result).toBe('/base/path');
