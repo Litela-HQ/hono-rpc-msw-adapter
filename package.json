@@ -26,8 +26,8 @@
   "scripts": {
     "build": "tsdown",
     "typecheck": "run-s 'typecheck:*'",
-    "typecheck:examples": "tsc --noEmit",
-    "typecheck:package": "turbo run typecheck",
+    "typecheck:package": "tsc --noEmit",
+    "typecheck:examples": "turbo run typecheck",
     "lint": "run-s 'lint:*'",
     "lint:oxlint": "oxlint --type-aware --ignore-path .gitignore --report-unused-disable-directives --tsconfig ./tsconfig.json",
     "lint:oxfmt": "pnpm fix:oxfmt --check",
@@ -35,32 +35,32 @@
     "fix:oxlint": "pnpm lint:oxlint --fix --fix-suggestions --fix-dangerously",
     "fix:oxfmt": "oxfmt --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "test": "run-s 'test:*'",
-    "test:examples": "vitest run",
-    "test:package": "turbo run test"
+    "test:package": "vitest run",
+    "test:examples": "pnpm build && turbo run test"
   },
   "devDependencies": {
-    "@hono/node-server": "catalog:",
-    "@hono/zod-validator": "catalog:",
-    "@tsconfig/strictest": "catalog:",
-    "@vitest/ui": "catalog:",
-    "hono": "catalog:",
-    "lefthook": "catalog:",
-    "msw": "catalog:",
-    "npm-run-all2": "catalog:",
-    "oxfmt": "catalog:",
-    "oxlint": "catalog:",
-    "oxlint-tsgolint": "catalog:",
-    "release-it": "catalog:",
-    "release-it-pnpm": "catalog:",
-    "tsdown": "catalog:",
-    "turbo": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:",
-    "zod": "catalog:"
+    "@hono/node-server": "1.19.7",
+    "@hono/zod-validator": "0.7.5",
+    "@tsconfig/strictest": "2.0.8",
+    "@vitest/ui": "4.0.15",
+    "hono": "4.11.1",
+    "lefthook": "2.0.12",
+    "msw": "2.12.4",
+    "npm-run-all2": "8.0.4",
+    "oxfmt": "0.18.0",
+    "oxlint": "1.33.0",
+    "oxlint-tsgolint": "0.9.1",
+    "release-it": "19.2.1",
+    "release-it-pnpm": "4.6.6",
+    "tsdown": "0.18.0",
+    "turbo": "2.7.2",
+    "typescript": "5.9.3",
+    "vitest": "4.0.15",
+    "zod": "4.2.1"
   },
   "peerDependencies": {
-    "hono": "catalog:",
-    "msw": "catalog:"
+    "hono": "4.11.1",
+    "msw": "2.12.4"
   },
   "packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa"
 }
