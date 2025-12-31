@@ -14,7 +14,7 @@
   },
   "npm": {
     "publish": true,
-    "skipChecks": false
+    "skipChecks": true
   },
   "hooks": {
     "before:init": [
@@ -23,7 +23,6 @@
       "pnpm typecheck",
       "pnpm build"
     ],
-    "before:npm:release": "pnpm build",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   }
 }
