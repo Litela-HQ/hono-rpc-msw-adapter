@@ -4,6 +4,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    exclude: ['examples/**', 'node_modules/**'],
+    exclude: ['.direnv/**', 'examples/**', 'node_modules/**'],
   },
 });

@@ -99,6 +99,17 @@ Pushing the generated `v*` tag triggers the publish workflow. The workflow verif
 
 After the first publish, verify the visibility in the package settings under the Litela-HQ organization. If it is not **Public**, an organization owner must change it to Public. GitHub does not allow a public package to be changed back to private.
 
+## Development
+
+Enter the Nix development shell to use the project-compatible Node.js and pnpm versions:
+
+```bash
+nix develop
+pnpm install --frozen-lockfile
+```
+
+Alternatively, run `direnv allow` to load the same environment automatically.
+
 ## API
 
 ### Handler Callback
