@@ -46,7 +46,7 @@
     "test:examples": "pnpm build && turbo run test"
   },
   "devDependencies": {
-    "@hono/node-server": "1.19.7",
+    "@hono/node-server": "1.19.17",
     "@hono/zod-validator": "0.7.5",
     "@tsconfig/strictest": "2.0.8",
     "@vitest/ui": "4.0.15",
@@ -57,7 +57,7 @@
     "oxfmt": "0.18.0",
     "oxlint": "1.33.0",
     "oxlint-tsgolint": "0.9.1",
-    "release-it": "19.2.1",
+    "release-it": "19.2.4",
     "release-it-pnpm": "4.6.6",
     "tsdown": "0.18.0",
     "turbo": "2.7.2",
