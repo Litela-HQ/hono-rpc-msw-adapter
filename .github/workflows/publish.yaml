@@ -1,0 +1,70 @@
+name: Publish package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        # zizmor: ignore[cache-poisoning] setup-node v4 does not cache pnpm unless the cache input is set.
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+        with:
+          node-version-file: '.node-version'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@litela-hq'
+
+      - name: Setup pnpm
+        run: corepack enable pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Verify tag version
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+
+      - name: Run checks
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Select npm distribution tag
+        id: dist-tag
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [[ "$version" == *-* ]]; then
+            echo 'name=next' >> "$GITHUB_OUTPUT"
+          else
+            echo 'name=latest' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish package
+        # zizmor: ignore[use-trusted-publishing] GitHub Packages authenticates with GITHUB_TOKEN, not npm OIDC.
+        run: pnpm publish --no-git-checks --tag "$NPM_DIST_TAG"
+        env:
+          NPM_DIST_TAG: ${{ steps.dist-tag.outputs.name }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

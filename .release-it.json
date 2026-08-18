@@ -13,8 +13,7 @@
     "release": true
   },
   "npm": {
-    "publish": true,
-    "skipChecks": true
+    "publish": false
   },
   "hooks": {
     "before:init": [

@@ -1,4 +1,4 @@
-import { type Register } from '@kimuson/hono-rpc-msw-adapter/register';
+import { type Register } from '@litela-hq/hono-rpc-msw-adapter/register';
 import { type Hono } from 'hono';
 import { type HonoBase } from 'hono/hono-base';
 import { type MergeSchemaPath, type Schema } from 'hono/types';

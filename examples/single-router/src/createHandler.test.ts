@@ -1,4 +1,4 @@
-import { createHandler } from '@kimuson/hono-rpc-msw-adapter';
+import { createHandler } from '@litela-hq/hono-rpc-msw-adapter';
 import { setupServer } from 'msw/node';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { client } from './client';

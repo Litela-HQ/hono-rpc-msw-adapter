@@ -10,7 +10,7 @@ runs:
 
     - name: Setup pnpm
       shell: bash
-      run: npm install -g pnpm
+      run: corepack enable pnpm
 
     - name: Install Dependencies
       shell: bash

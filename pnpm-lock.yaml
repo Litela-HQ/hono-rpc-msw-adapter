@@ -68,7 +68,7 @@ importers:
       '@hono/zod-validator':
         specifier: 0.7.5
         version: 0.7.5(hono@4.11.1)(zod@4.2.1)
-      '@kimuson/hono-rpc-msw-adapter':
+      '@litela-hq/hono-rpc-msw-adapter':
         specifier: workspace:*
         version: link:../..
       hono:
@@ -90,7 +90,7 @@ importers:
       '@hono/zod-validator':
         specifier: 0.7.5
         version: 0.7.5(hono@4.11.1)(zod@4.2.1)
-      '@kimuson/hono-rpc-msw-adapter':
+      '@litela-hq/hono-rpc-msw-adapter':
         specifier: workspace:*
         version: link:../..
       hono:

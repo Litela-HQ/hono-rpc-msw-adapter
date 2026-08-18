@@ -6,8 +6,18 @@ While Hono's official RPC feature enables type-safe resource access from the fro
 
 ## Installation
 
+GitHub Packages requires authentication, including for public npm packages. Create a classic personal access token with the `read:packages` scope, then add the following configuration to your user-level `~/.npmrc`:
+
+```ini
+@litela-hq:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Set the token in your environment and install the package:
+
 ```bash
-pnpm add @kimuson/hono-rpc-msw-adapter
+export GITHUB_PACKAGES_TOKEN=YOUR_TOKEN
+pnpm add @litela-hq/hono-rpc-msw-adapter
 ```
 
 ## Usage
@@ -32,14 +42,14 @@ export type AppType = typeof app;
 ```typescript
 // path/to/api/client.ts
 import { hc } from 'hono/client';
-import { setConfig } from '@kimuson/hono-rpc-msw-adapter';
+import { setConfig } from '@litela-hq/hono-rpc-msw-adapter';
 import type { AppType } from '/path/to/api';
 
 const baseUrl = 'http://localhost:3000'
 
 // for msw adapter
 setConfig({ baseUrl });
-declare module '@kimuson/hono-rpc-msw-adapter/register' {
+declare module '@litela-hq/hono-rpc-msw-adapter/register' {
   interface Register {
     routeType: AppType;
   }
@@ -49,12 +59,12 @@ declare module '@kimuson/hono-rpc-msw-adapter/register' {
 export const client = hc<AppType>(baseUrl);
 ```
 
-The `declare module` statement registers your API type with `@kimuson/hono-rpc-msw-adapter`. This enables declaration merging of the API type, allowing the library to provide type-safe handler generation based on your API schema.
+The `declare module` statement registers your API type with `@litela-hq/hono-rpc-msw-adapter`. This enables declaration merging of the API type, allowing the library to provide type-safe handler generation based on your API schema.
 
 ### 3. Create MSW handlers
 
 ```typescript
-import { createHandler } from '@kimuson/hono-rpc-msw-adapter';
+import { createHandler } from '@litela-hq/hono-rpc-msw-adapter';
 import { setupServer } from 'msw/node';
 
 export const postsHandler = createHandler(
@@ -76,6 +86,18 @@ It also validates HTTP methods, ensuring only defined methods are accepted. The 
 The resulting `postsHandler` is a ready-to-use MSW handler that can be registered with `server.use()` in a properly configured MSW setup.
 
 For MSW configuration details, please refer to the MSW documentation.
+
+## Publishing
+
+Releases are prepared with release-it:
+
+```bash
+pnpm exec release-it
+```
+
+Pushing the generated `v*` tag triggers the publish workflow. The workflow verifies that the tag matches the version in `package.json`, runs all checks, builds the package, and publishes it to GitHub Packages using the repository's `GITHUB_TOKEN`. Stable versions use the `latest` distribution tag, while prerelease versions use `next`.
+
+After the first publish, verify the visibility in the package settings under the Litela-HQ organization. If it is not **Public**, an organization owner must change it to Public. GitHub does not allow a public package to be changed back to private.
 
 ## API
 

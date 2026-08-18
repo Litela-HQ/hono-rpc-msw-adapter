@@ -1,4 +1,4 @@
-import { createHandler } from '@kimuson/hono-rpc-msw-adapter';
+import { createHandler } from '@litela-hq/hono-rpc-msw-adapter';
 
 createHandler(
   // @ts-expect-error -- non-exists route should be detected by type checking
