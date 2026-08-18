@@ -1,6 +1,25 @@
 packages:
   - examples/*
-
-catalogMode: manual
-
+catalogMode: strict
+cleanupUnusedCatalogs: true
 minimumReleaseAge: 7200
+packageManagerStrictVersion: true
+catalog:
+  '@hono/node-server': 1.19.17
+  '@hono/zod-validator': 0.7.5
+  '@tsconfig/strictest': 2.0.8
+  '@vitest/ui': 4.0.15
+  hono: 4.11.1
+  lefthook: 2.0.12
+  msw: 2.12.4
+  npm-run-all2: 8.0.4
+  oxfmt: 0.18.0
+  oxlint: 1.33.0
+  oxlint-tsgolint: 0.9.1
+  release-it: 19.2.4
+  release-it-pnpm: 4.6.6
+  tsdown: 0.18.0
+  turbo: 2.7.2
+  typescript: 5.9.3
+  vitest: 4.0.15
+  zod: 4.2.1

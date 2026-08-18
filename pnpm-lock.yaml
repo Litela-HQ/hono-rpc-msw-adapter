@@ -4,107 +4,164 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@hono/node-server':
+      specifier: 1.19.17
+      version: 1.19.17
+    '@hono/zod-validator':
+      specifier: 0.7.5
+      version: 0.7.5
+    '@tsconfig/strictest':
+      specifier: 2.0.8
+      version: 2.0.8
+    '@vitest/ui':
+      specifier: 4.0.15
+      version: 4.0.15
+    hono:
+      specifier: 4.11.1
+      version: 4.11.1
+    lefthook:
+      specifier: 2.0.12
+      version: 2.0.12
+    msw:
+      specifier: 2.12.4
+      version: 2.12.4
+    npm-run-all2:
+      specifier: 8.0.4
+      version: 8.0.4
+    oxfmt:
+      specifier: 0.18.0
+      version: 0.18.0
+    oxlint:
+      specifier: 1.33.0
+      version: 1.33.0
+    oxlint-tsgolint:
+      specifier: 0.9.1
+      version: 0.9.1
+    release-it:
+      specifier: 19.2.4
+      version: 19.2.4
+    release-it-pnpm:
+      specifier: 4.6.6
+      version: 4.6.6
+    tsdown:
+      specifier: 0.18.0
+      version: 0.18.0
+    turbo:
+      specifier: 2.7.2
+      version: 2.7.2
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
+    vitest:
+      specifier: 4.0.15
+      version: 4.0.15
+    zod:
+      specifier: 4.2.1
+      version: 4.2.1
+
 importers:
 
   .:
     devDependencies:
       '@hono/node-server':
-        specifier: 1.19.17
+        specifier: 'catalog:'
         version: 1.19.17(hono@4.11.1)
       '@hono/zod-validator':
-        specifier: 0.7.5
+        specifier: 'catalog:'
         version: 0.7.5(hono@4.11.1)(zod@4.2.1)
       '@tsconfig/strictest':
-        specifier: 2.0.8
+        specifier: 'catalog:'
         version: 2.0.8
       '@vitest/ui':
-        specifier: 4.0.15
+        specifier: 'catalog:'
         version: 4.0.15(vitest@4.0.15)
       hono:
-        specifier: 4.11.1
+        specifier: 'catalog:'
         version: 4.11.1
       lefthook:
-        specifier: 2.0.12
+        specifier: 'catalog:'
         version: 2.0.12
       msw:
-        specifier: 2.12.4
+        specifier: 'catalog:'
         version: 2.12.4(@types/node@22.19.3)(typescript@5.9.3)
       npm-run-all2:
-        specifier: 8.0.4
+        specifier: 'catalog:'
         version: 8.0.4
       oxfmt:
-        specifier: 0.18.0
+        specifier: 'catalog:'
         version: 0.18.0
       oxlint:
-        specifier: 1.33.0
+        specifier: 'catalog:'
         version: 1.33.0(oxlint-tsgolint@0.9.1)
       oxlint-tsgolint:
-        specifier: 0.9.1
+        specifier: 'catalog:'
         version: 0.9.1
       release-it:
-        specifier: 19.2.4
+        specifier: 'catalog:'
         version: 19.2.4(@types/node@22.19.3)
       release-it-pnpm:
-        specifier: 4.6.6
+        specifier: 'catalog:'
         version: 4.6.6(release-it@19.2.4(@types/node@22.19.3))
       tsdown:
-        specifier: 0.18.0
+        specifier: 'catalog:'
         version: 0.18.0(typescript@5.9.3)
       turbo:
-        specifier: 2.7.2
+        specifier: 'catalog:'
         version: 2.7.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitest:
-        specifier: 4.0.15
+        specifier: 'catalog:'
         version: 4.0.15(@types/node@22.19.3)(@vitest/ui@4.0.15)(jiti@2.6.1)(msw@2.12.4(@types/node@22.19.3)(typescript@5.9.3))(yaml@2.8.2)
       zod:
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
 
   examples/multiple-router:
     dependencies:
       '@hono/zod-validator':
-        specifier: 0.7.5
+        specifier: 'catalog:'
         version: 0.7.5(hono@4.11.1)(zod@4.2.1)
       '@litela-hq/hono-rpc-msw-adapter':
         specifier: workspace:*
         version: link:../..
       hono:
-        specifier: 4.11.1
+        specifier: 'catalog:'
         version: 4.11.1
       zod:
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
     devDependencies:
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitest:
-        specifier: 4.0.15
+        specifier: 'catalog:'
         version: 4.0.15(@types/node@22.19.3)(@vitest/ui@4.0.15)(jiti@2.6.1)(msw@2.12.4(@types/node@22.19.3)(typescript@5.9.3))(yaml@2.8.2)
 
   examples/single-router:
     dependencies:
       '@hono/zod-validator':
-        specifier: 0.7.5
+        specifier: 'catalog:'
         version: 0.7.5(hono@4.11.1)(zod@4.2.1)
       '@litela-hq/hono-rpc-msw-adapter':
         specifier: workspace:*
         version: link:../..
       hono:
-        specifier: 4.11.1
+        specifier: 'catalog:'
         version: 4.11.1
       zod:
-        specifier: 4.2.1
+        specifier: 'catalog:'
         version: 4.2.1
     devDependencies:
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitest:
-        specifier: 4.0.15
+        specifier: 'catalog:'
         version: 4.0.15(@types/node@22.19.3)(@vitest/ui@4.0.15)(jiti@2.6.1)(msw@2.12.4(@types/node@22.19.3)(typescript@5.9.3))(yaml@2.8.2)
 
 packages:

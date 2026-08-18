@@ -10,6 +10,7 @@
     "group:test"
   ],
   "rangeStrategy": "pin",
+  "minimumReleaseAge": "5 days",
   "labels": ["deps"],
   "packageRules": [
     {
@@ -45,6 +46,11 @@
         "automerge": false
       },
       "matchPackageNames": ["/^@prisma/*/", "prisma"]
+    },
+    {
+      "description": "Preserve supported engine and peer dependency ranges",
+      "matchDepTypes": ["engines", "peerDependencies"],
+      "rangeStrategy": "auto"
     }
   ],
   "ignoreDeps": []
