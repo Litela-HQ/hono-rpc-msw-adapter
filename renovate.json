@@ -17,7 +17,7 @@
       "groupName": "npm patch dependencies",
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["patch"],
-      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies", "pnpm.catalog.*"],
       "matchPackageNames": ["*"],
       "automerge": true
     },
@@ -25,7 +25,7 @@
       "groupName": "npm minor dependencies",
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor"],
-      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies", "peerDependencies", "pnpm.catalog.*"],
       "matchPackageNames": ["*"]
     },
     {
