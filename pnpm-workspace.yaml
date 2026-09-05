@@ -6,20 +6,20 @@ minimumReleaseAge: 7200
 packageManagerStrictVersion: true
 catalog:
   '@hono/node-server': 1.19.17
-  '@hono/zod-validator': 0.7.5
+  '@hono/zod-validator': 0.9.1
   '@tsconfig/strictest': 2.0.8
-  '@vitest/ui': 4.0.15
+  '@vitest/ui': 4.1.11
   hono: 4.13.2
-  lefthook: 2.0.12
+  lefthook: 2.1.12
   msw: 2.15.0
   npm-run-all2: 8.0.4
-  oxfmt: 0.18.0
-  oxlint: 1.33.0
-  oxlint-tsgolint: 0.9.1
+  oxfmt: 0.65.0
+  oxlint: 1.80.0
+  oxlint-tsgolint: 0.25.0
   release-it: 19.2.4
   release-it-pnpm: 4.6.6
-  tsdown: 0.18.0
-  turbo: 2.7.2
+  tsdown: 0.22.14
+  turbo: 2.10.12
   typescript: 5.9.3
-  vitest: 4.0.15
-  zod: 4.2.1
+  vitest: 4.1.11
+  zod: 4.5.4
